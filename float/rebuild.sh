@@ -9,7 +9,8 @@ if [ $# -lt 1 ]; then
 fi
 
 # 当前目录全路径
-ROOT_DIR=$(dirname `pwd`)
+CURRENT_DIR=`pwd`
+ROOT_DIR=$(dirname $CURRENT_DIR)
 
 SRC_DIR=$1
 
@@ -51,7 +52,7 @@ if [ $? != 0 ]; then
     exit 0
 fi
 
-cmake --install "$BUILD_DIR" --config $BUILD_TYPE --prefix "$ROOT_DIR/$PRODUCT_DIR"
+cmake --install "$BUILD_DIR" --config $BUILD_TYPE --prefix "$CURRENT_DIR/$PRODUCT_DIR"
 if [ $? != 0 ]; then
     echo "cmake安装失败"
     exit 0
