@@ -3,15 +3,26 @@
 # 进入当今脚本所在目录
 cd $(dirname "$0")
 
+if [ $# -lt 1 ]; then
+    echo "请指定编译的项目"
+    exit 1
+fi
+
 # 当前目录全路径
-ROOT_DIR=`pwd`
+ROOT_DIR=$(dirname `pwd`)
 
-ClangToolChain=$ROOT_DIR/toolchain/clang.cmake
-GccToolChain=$ROOT_DIR/toolchain/gcc.cmake
+SRC_DIR=$1
 
-# SRC_DIR=demo1
-# SRC_DIR=demo2
-SRC_DIR=demo3
+if [ ! -d "$SRC_DIR" ]; then
+    echo "项目 $SRC_DIR 不存在"
+    exit 1
+fi
+
+if [ "$2" = "clang" ]; then
+    ToolchainFile=$ROOT_DIR/toolchain/clang-default.cmake
+else
+    ToolchainFile=$ROOT_DIR/toolchain/gcc-default.cmake
+fi
 
 # 设置三个变量 分别表示安装目录、编译目录和编译类型
 PRODUCT_DIR=product
@@ -28,7 +39,7 @@ if [ -d "$PRODUCT_DIR" ]; then
     rm -rf "$PRODUCT_DIR"
 fi
 
-cmake -B "$BUILD_DIR" -S $SRC_DIR --toolchain $ClangToolChain -DCMAKE_BUILD_TYPE=$BUILD_TYPE
+cmake -B "$BUILD_DIR" -S $SRC_DIR --toolchain $ToolchainFile -DCMAKE_BUILD_TYPE=$BUILD_TYPE
 if [ $? != 0 ]; then
     echo "cmake创建项目失败"
     exit 0
