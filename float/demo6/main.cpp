@@ -1,7 +1,9 @@
 #include <cfenv>
 #include <iostream>
 
-// 
+// 不同的编译器对浮点数环境的访问可能不通
+// 实际上，基本上都是 OFF
+// 所以，这里明确开启 ON
 #pragma STDC FENV_ACCESS ON
 
 int main()
