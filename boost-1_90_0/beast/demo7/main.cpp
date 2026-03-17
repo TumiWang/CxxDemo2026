@@ -40,7 +40,7 @@ int GetUrlResult(const char* host, const char* path) {
     if (error_code) return error_code.value();
 
     // 下面是打印的 所有返回的内容
-    std::cout << response << std::endl;
+    // std::cout << response << std::endl;
 
     // 正常返回值应该为 200
     // 当然，也可能返回 302 等
