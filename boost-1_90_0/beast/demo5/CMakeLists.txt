@@ -16,8 +16,6 @@ endif()
 # asio 从 boost 1.35.0 开始支持
 find_package(Boost 1.66.0 REQUIRED)
 
-set(OPENSSL_USE_STATIC_LIBS ON)
-
 # 因为使用 https 所以需要 OpenSSL
 find_package(OpenSSL REQUIRED)
 

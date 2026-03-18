@@ -26,6 +26,9 @@ set(CMAKE_RANLIB "llvm-ranlib-20" CACHE STRING "")
 
 # set(CMAKE_RC_COMPILER "llvm-rc-20" CACHE STRING "")
 
+set(Boost_USE_STATIC_LIBS ON)
+set(OPENSSL_USE_STATIC_LIBS ON)
+
 # 下面通常不需要设置
 add_compile_definitions(__LINUX__)
 set(LINUX ON CACHE BOOL "")
