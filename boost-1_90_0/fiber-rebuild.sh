@@ -24,7 +24,13 @@ SysArch=`uname -m`
 if [ "$SysArch" = "arm64" ]; then
     SysArch=aarch64
 fi
-ToolchainFile=$ROOT_DIR/toolchain/ubuntu20_04-boost_1_90_0-$SysArch.cmake
+if [ "$(uname -s)" = "Darwin" ]; then
+    ToolchainFile=$ROOT_DIR/toolchain/maxos-static_libs-$SysArch.cmake
+else
+    # 这时, 认为是交叉编译的Linux环境
+    # 例如: run_docker_image.sh 启动的docker 环境
+    ToolchainFile=$ROOT_DIR/toolchain/ubuntu20_04-boost_1_90_0-$SysArch.cmake
+fi
 
 # 设置三个变量 分别表示安装目录、编译目录和编译类型
 PRODUCT_DIR=product
