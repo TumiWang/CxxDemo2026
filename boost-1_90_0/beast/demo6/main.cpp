@@ -1,5 +1,6 @@
 #include <chrono>
 #include <iostream>
+#include <memory>
 #include <sstream>
 #include <string>
 #include <thread>
@@ -63,6 +64,8 @@ private:
     boost::beast::flat_buffer buffer_;
     boost::beast::http::request<boost::beast::http::empty_body> request_;
     boost::beast::http::response<boost::beast::http::dynamic_body> response_;
+
+    std::unique_ptr<StatisticsDuration> duration_;
 };
 
 Https::Https(boost::asio::any_io_executor executor)
@@ -75,6 +78,16 @@ Https::Https(boost::asio::any_io_executor executor)
 void Https::DoGet(const std::string& host,
                   const std::string& port,
                   const std::string& path) {
+    if (!duration_) {
+        std::ostringstream os;
+        os << "https://" << host;
+        if (port != default_https_port_) {
+            os << ":" << default_https_port_;
+        }
+        os << path;
+        duration_.reset(new StatisticsDuration(os.str()));
+    }
+
     request_.version(http_1_1_version_);
     request_.method(boost::beast::http::verb::get);
     request_.target(path);
@@ -144,13 +157,13 @@ int main()
 
     threads.emplace_back([&]{
         // 访问: https://www.baidu.com/
-        StatisticsDuration d("https://www.baidu.com/");
+        // StatisticsDuration d("https://www.baidu.com/");
         GetUrlResult("www.baidu.com", "/");
     });
 
     threads.emplace_back([&]{
         // 访问: https://cmake.org/cmake/help/latest/index.html
-        StatisticsDuration d("https://cmake.org/cmake/help/latest/index.html");
+        // StatisticsDuration d("https://cmake.org/cmake/help/latest/index.html");
         GetUrlResult("cmake.org", "/cmake/help/latest/index.html");
     });
 

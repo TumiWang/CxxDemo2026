@@ -16,12 +16,9 @@ endif()
 # asio 从 boost 1.35.0 开始支持
 find_package(Boost 1.66.0 REQUIRED)
 
-# 因为使用 https 所以需要 OpenSSL
-find_package(OpenSSL REQUIRED)
-
 add_executable(test main.cpp)
 
-target_link_libraries(test PRIVATE Boost::headers OpenSSL::SSL)
+target_link_libraries(test PRIVATE Boost::headers)
 
 if(LINUX)
     target_link_libraries(test PRIVATE pthread)
