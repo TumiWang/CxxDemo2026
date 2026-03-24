@@ -17,6 +17,8 @@ int GetUrlResult(const char* host, const char* path) {
     boost::asio::ip::tcp::resolver resolver(is_context);
 
     // 下面是 建立https连接 的第一步 解析域名等
+    // 另: 端口是字符串的好处是，也可以是协议名
+    // 例如: default_https_port_ = "https"
     boost::asio::ip::tcp::resolver::results_type results = resolver.resolve(host, default_https_port_);
     if (results.empty()) return 0;
 
