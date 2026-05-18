@@ -24,7 +24,11 @@ SysArch=`uname -m`
 if [ "$SysArch" = "arm64" ]; then
     SysArch=aarch64
 fi
-if [ "$(uname -s)" = "Darwin" ]; then
+
+if [ -n "$WINDOWS_TARGET" ]; then
+    . $ROOT_DIR/tools/ensure_mount_winsdk.sh
+    ToolchainFile=$ROOT_DIR/toolchain/windows-$WINDOWS_TARGET.cmake
+elif [ "$(uname -s)" = "Darwin" ]; then
     ToolchainFile=$ROOT_DIR/toolchain/maxos-static_libs-$SysArch.cmake
 else
     # 这时, 认为是交叉编译的Linux环境
