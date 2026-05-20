@@ -18,7 +18,7 @@ set(Boost_USE_STATIC_LIBS ON)
 # coroutine2 从 boost 1.59.0 开始支持
 # 但 coroutine2 新的 boost 内部需要 fiber
 # fiber 从 boost 1.62.0 开始支持
-find_package(Boost 1.62.0 REQUIRED fiber)
+find_package(Boost 1.62.0 REQUIRED fiber CONFIG)
 
 add_executable(test main.cpp)
 

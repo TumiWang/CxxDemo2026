@@ -2,7 +2,7 @@
 
 cmake_minimum_required(VERSION 3.16)
 
-project(baidu)
+project(asio-io_context)
 
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -11,17 +11,15 @@ if(MSVC)
     add_compile_options(/utf-8)
 endif()
 
-# 需要 boost 的 asio 和 beast 它们都只有头文件
-# beast 从 boost 1.66.0 开始支持
+# 需要 boost 的 asio 只有头文件
 # asio 从 boost 1.35.0 开始支持
-find_package(Boost 1.66.0 REQUIRED CONFIG)
-
-# 因为使用 https 所以需要 OpenSSL
-find_package(OpenSSL REQUIRED CONFIG)
+find_package(Boost 1.35.0 REQUIRED CONFIG)
 
 add_executable(test main.cpp)
 
-target_link_libraries(test PRIVATE Boost::headers OpenSSL::SSL)
+target_link_libraries(test PRIVATE Boost::headers)
+
+target_compile_definitions(test PUBLIC BOOST_ASIO_CUSTOM_HANDLER_TRACKING="${CMAKE_CURRENT_SOURCE_DIR}/custom_tracking.hpp")
 
 if(LINUX)
     target_link_libraries(test PRIVATE pthread)

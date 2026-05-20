@@ -25,9 +25,12 @@ if [ "$SysArch" = "arm64" ]; then
     SysArch=aarch64
 fi
 
+
 if [ -n "$WINDOWS_TARGET" ]; then
     . $ROOT_DIR/tools/ensure_mount_winsdk.sh
     ToolchainFile=$ROOT_DIR/toolchain/windows-$WINDOWS_TARGET.cmake
+elif [ -n "$LINUX_TARGET" ]; then
+    ToolchainFile=$ROOT_DIR/toolchain/ubuntu20_04-boost_1_90_0-$LINUX_TARGET.cmake
 elif [ "$(uname -s)" = "Darwin" ]; then
     ToolchainFile=$ROOT_DIR/toolchain/maxos-static_libs-$SysArch.cmake
 else

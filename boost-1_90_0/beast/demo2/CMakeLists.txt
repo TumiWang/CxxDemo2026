@@ -15,10 +15,10 @@ endif()
 # beast 从 boost 1.66.0 开始支持
 # asio 从 boost 1.35.0 开始支持
 # fiber 从 boost 1.62.0 开始支持
-find_package(Boost 1.66.0 REQUIRED fiber)
+find_package(Boost 1.66.0 REQUIRED COMPONENTS fiber CONFIG)
 
 # 因为使用 https 所以需要 OpenSSL
-find_package(OpenSSL REQUIRED)
+find_package(OpenSSL REQUIRED CONFIG)
 
 add_executable(test main.cpp)
 

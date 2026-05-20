@@ -14,7 +14,7 @@ endif()
 # 需要 boost 的 asio 和 beast 它们都只有头文件
 # beast 从 boost 1.66.0 开始支持
 # asio 从 boost 1.35.0 开始支持
-find_package(Boost 1.66.0 REQUIRED)
+find_package(Boost 1.66.0 REQUIRED CONFIG)
 
 add_executable(test main.cpp)
 

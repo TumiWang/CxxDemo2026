@@ -16,7 +16,7 @@ endif()
 set(Boost_USE_STATIC_LIBS ON)
 
 # fiber 从 boost 1.62.0 开始支持
-find_package(Boost 1.62.0 REQUIRED fiber)
+find_package(Boost 1.62.0 REQUIRED fiber CONFIG)
 
 add_executable(test main.cpp)
 

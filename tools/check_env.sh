@@ -1,4 +1,3 @@
-cd $(dirname "$0")
 
 SysArch=`uname -m`
 if [ "$SysArch" = "arm64" ]; then
@@ -13,5 +12,3 @@ else
     echo "没有找到 docker 或 podman"
     exit 1
 fi
-
-$DockerTool run --privileged --rm -it -w /source -v $(pwd):/source -e WINDOWS_TARGET=x64 crosscomiling/$SysArch:clang20 bash

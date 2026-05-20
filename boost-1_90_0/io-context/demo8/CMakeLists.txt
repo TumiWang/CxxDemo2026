@@ -13,7 +13,7 @@ endif()
 
 # 需要 boost 的 asio 只有头文件
 # asio 从 boost 1.35.0 开始支持
-find_package(Boost 1.35.0 REQUIRED)
+find_package(Boost 1.35.0 REQUIRED CONFIG)
 
 add_executable(test main.cpp)
 

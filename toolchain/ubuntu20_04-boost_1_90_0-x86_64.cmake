@@ -1,7 +1,7 @@
 # 交叉编译
 set(CMAKE_SYSTEM_NAME Linux)
 set(CMAKE_SYSTEM_PROCESSOR x86_64)
-set(TARGET_TRIPLE x86_64-linux-gnueabihf)
+set(TARGET_TRIPLE x86_64-linux-gnu)
 
 # 指定使用Ninja
 set(CMAKE_GENERATOR "Ninja" CACHE STRING "")
