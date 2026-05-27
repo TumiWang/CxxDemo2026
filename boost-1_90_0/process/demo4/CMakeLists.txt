@@ -23,3 +23,5 @@ if(LINUX)
 endif()
 
 install(TARGETS test DESTINATION .)
+
+install(FILES $<TARGET_RUNTIME_DLLS:test> DESTINATION .)
