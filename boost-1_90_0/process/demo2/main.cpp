@@ -31,9 +31,9 @@ int main() {
     auto task1 = boost::process::async_execute(std::move(proc));
 
     // 使用创建任务的方法 task1
-    // 创建任务 task2 -- 20秒后中断进程 proc
+    // 创建任务 task2 -- 10秒后中断进程 proc
     //     中断进程    -- boost::asio::cancellation_type::total
-    //     请求退出进程 -- boost::asio::cancellation_type::request_exit
+    //     请求退出进程 -- boost::asio::cancellation_type::partial
     //     终止进程    -- boost::asio::cancellation_type::terminal
     // 实际上 使用 task1 创建了一个延时任务 -- 10秒后中断(ping)进程
     // 并生成一个新的任务创建方法 -- task2
