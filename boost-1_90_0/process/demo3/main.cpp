@@ -7,6 +7,7 @@
 #include "boost/nowide/iostream.hpp"
 #include "boost/process.hpp"
 
+#include <iostream>
 #include <thread>
 
 int main() {

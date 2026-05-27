@@ -7,6 +7,7 @@
 #include "boost/nowide/iostream.hpp"
 #include "boost/process.hpp"
 
+#include <iostream>
 #include <thread>
 
 int main() {
@@ -34,7 +35,7 @@ int main() {
     );
 
 auto task1 = boost::process::async_execute(std::move(proc));
-    auto task2 = std::move(task1)(boost::asio::cancel_after(std::chrono::seconds(50), boost::asio::cancellation_type::total));
+    auto task2 = std::move(task1)(boost::asio::cancel_after(std::chrono::seconds(10), boost::asio::cancellation_type::total));
     std::move(task2)(boost::asio::detached);
 
     context.run();

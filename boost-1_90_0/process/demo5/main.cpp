@@ -8,6 +8,7 @@
 #include "boost/process.hpp"
 
 #include <functional>
+#include <iostream>
 
 int main() {
     auto ping_filename = boost::process::environment::find_executable("ping");
@@ -57,7 +58,7 @@ int main() {
     async_read_all_from_pipe();
 
     auto task1 = boost::process::async_execute(std::move(proc));
-    auto task2 = std::move(task1)(boost::asio::cancel_after(std::chrono::seconds(100), boost::asio::cancellation_type::total));
+    auto task2 = std::move(task1)(boost::asio::cancel_after(std::chrono::seconds(10), boost::asio::cancellation_type::total));
     std::move(task2)(boost::asio::detached);
 
     context.run();
