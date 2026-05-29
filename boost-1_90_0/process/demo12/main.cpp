@@ -43,7 +43,7 @@ void DoMainProcess() {
 
     // 下面代码是为工作进程准备环境变量 my_env
     std::vector<boost::process::environment::key_value_pair> my_env;
-    my_env.push_back(boost::process::environment::key_value_pair(DEFAULT_ENV_KEY, DEFAULT_ENV_VALUE));
+    my_env.push_back(std::make_pair(DEFAULT_ENV_KEY, DEFAULT_ENV_VALUE));
     for (const auto& kv: boost::process::environment::current()) {
         if (kv.key().string() != DEFAULT_ENV_KEY)
             my_env.push_back(kv);
