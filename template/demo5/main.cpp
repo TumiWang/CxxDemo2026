@@ -3,7 +3,6 @@
 #include "math.hpp"
 
 #include <iostream>
-#include <type_traits>
 
 // 下面这个函数的实现在文件 math_int.cpp中
 // 这里偷懒没有写 单独的函数声明头文件
