@@ -1,10 +1,9 @@
 #include <iostream>
 #include <type_traits>
 
-template<typename T,
-        typename std::enable_if<std::rank<T>::value == 1, bool>::type = true>
-void f(T& array) {
-    std::cout << "rank : " << std::rank<T>::value << std::endl;
+template<typename T>
+typename std::enable_if<std::rank<T>::value == 1, void>::type
+f(T& array) {
     for(size_t i = 0; i < std::extent<T>::value; ++i) {
         std::cout << array[i] << " ";
     }
