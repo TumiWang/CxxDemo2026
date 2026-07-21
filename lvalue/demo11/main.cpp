@@ -3,45 +3,12 @@
 #include <string>
 #include <type_traits>
 
-// 下面这组3个是判断是否为 prvalue
-template<class T>
-struct is_prvalue: std::true_type {};
-template<class T>
-struct is_prvalue<T&>: std::false_type {};
-template<class T>
-struct is_prvalue<T&&>: std::false_type {};
-
-// 下面这组3个是判断是否为 xvalue
-template<class T>
-struct is_xvalue: std::false_type {};
-template<class T>
-struct is_xvalue<T&>: std::false_type {};
-template<class T>
-struct is_xvalue<T&&>: std::true_type {};
-
-// 下面这组3个是判断是否为 lvalue
-template<class T>
-struct is_lvalue: std::false_type {};
-template<class T>
-struct is_lvalue<T&>: std::true_type {};
-template<class T>
-struct is_lvalue<T&&>: std::false_type {};
-
-// 上面9个 在使用上和 type_traits头文件提供的有一个差别
-// 例如：
-// int a;
-// 上面的获取类型要使用
-// decltype((a))
-// type_traits头文件提供 通常都是
-// decltype(a)
-//    多一组小括弧
 #define PRINT_VARIABLE_INFO(v)  \
-    if (is_prvalue<decltype((v))>::value)   \
-        std::cout << #v << " is a prvalue" << std::endl; \
-    if (is_xvalue<decltype((v))>::value)   \
+    if (std::is_lvalue_reference<decltype((v))>::value)   \
+        std::cout << #v << " is a lvalue" << std::endl; \
+    else if (std::is_rvalue_reference<decltype((v))>::value)   \
         std::cout << #v << " is a xvalue" << std::endl; \
-    if (is_lvalue<decltype((v))>::value)   \
-        std::cout  << #v << " is a lvalue" << std::endl;
+    else std::cout << #v << " is a prvalue" << std::endl;
 
 int main() {
     // 除了字符串以外的字面常量都是 prvalue
@@ -50,6 +17,7 @@ int main() {
     PRINT_VARIABLE_INFO(nullptr); // prvalue
     PRINT_VARIABLE_INFO('C'); // prvalue
     PRINT_VARIABLE_INFO("C"); // lvalue
+    
 #if __cplusplus >= 201402L
     {
         // C++14或更高
